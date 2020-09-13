@@ -12,9 +12,13 @@ class TextExtractor:
 
     def extract(self):
         page = wikipedia.page(title=self.__pageTitle, pageid=self.__pageId)
-        f = open("./text/" + self.__pageTitle + ".txt", "w")
-        f.write(page.content)
-        f.close()
+
+        if not os.path.isdir('text'):
+            os.mkdir('text')
+            print(f'created text folder in {os.getcwd()}')
+        
+        with open("./text/" + self.__pageTitle + ".txt", "w", encoding='utf-8') as f:
+            f.write(page.content)
 
     def getText(self):
         f = open("./text/" + self.__pageTitle + ".txt", "r")
