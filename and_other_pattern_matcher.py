@@ -7,6 +7,14 @@ class AndOtherPatternMatcher(PatternMatcher):
 
 
     def __init__(self, nlp):
+        '''
+        "look for structures containing 4 words: 
+        1. the first word is a NOUN (POS stands for Part-Of-Speech), 
+        2. second word is <<and>>, 
+        3. third is <<other>>
+        4.  and the last word is also a Noun".
+        '''
+
         pattern = [{'POS': 'NOUN'},
                    {'LOWER': 'and'},
                    {'LOWER': 'other'},
@@ -14,6 +22,10 @@ class AndOtherPatternMatcher(PatternMatcher):
         PatternMatcher.__init__(self, pattern, nlp, "andOther")
 
     def getRelations(self, doc: Doc) -> [Relation]:
+        '''
+
+        returns a list of spaCy Span objects
+        '''
         relations = []
         matches = self._matcher(doc)
         for match_id, start, end in matches:

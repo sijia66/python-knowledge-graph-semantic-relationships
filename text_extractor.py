@@ -1,15 +1,13 @@
 import wikipedia
+import os
 
 
 class TextExtractor:
 
-    __pageTitle: str
-    __pageId: str
-
     def __init__(self, pageTitle, pageId):
         self.__pageTitle = pageTitle
         self.__pageId = pageId
-
+    
     def extract(self):
         page = wikipedia.page(title=self.__pageTitle, pageid=self.__pageId)
 
@@ -21,5 +19,13 @@ class TextExtractor:
             f.write(page.content)
 
     def getText(self):
-        f = open("./text/" + self.__pageTitle + ".txt", "r")
-        return f.read()
+        flnm = "./text/" + self.__pageTitle + ".txt"
+        try:
+            f = open(flnm , "r")
+            f_ctent = f.read()
+            return f_ctent
+        except:
+            print('cannot open the file:')
+            print(flnm)
+
+ 
